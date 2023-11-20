@@ -1,0 +1,110 @@
+
+// Trend Scanner mt5 GS
+// Developer: Forex Robot Easy Team
+// Developer's website: forexroboteasy.com
+
+// Import necessary libraries
+#include <Trade\Trade.mqh>
+#include <Graphics\Graphics.mqh>
+#include <Custom\GoldStuff.mqh>
+
+// Define constants
+#define PANEL_WIDTH 300
+#define PANEL_HEIGHT 400
+
+// Define global variables
+CChartObjectPanel panel;
+CGoldStuff goldStuff;
+CTrade trade;
+
+// Initialize the trend scanner
+void OnInit()
+{
+    // Create a movable panel on the chart
+    panel.Create(0, 'Trend Scanner', 0, 0, PANEL_WIDTH, PANEL_HEIGHT);
+    panel.SetPosition(0, 0);
+    panel.SetBorderColor(clrDarkGray);
+    panel.SetColor(clrWhite);
+
+    // Initialize the Gold Stuff indicator
+    goldStuff.Init();
+}
+
+// Scan market trends across multiple symbols and time frames
+void ScanMarketTrends()
+{
+    // Loop through all available symbols
+    for (int i = 0; i < SymbolsTotal(); i++)
+    {
+        string symbol = SymbolName(i, false);
+
+        // Loop through all available time frames
+        for (int j = 0; j < PeriodsTotal(); j++)
+        {
+            ENUM_TIMEFRAMES timeframe = PeriodSeconds(j);
+
+            // Calculate trend using the Gold Stuff indicator
+            double trend = goldStuff.CalculateTrend(symbol, timeframe);
+
+            // Display the trend on the panel
+            panel.AddLabel(0, string('Symbol: ') + symbol + ', Timeframe: ' + EnumToString(timeframe), 0, 0);
+            panel.AddLabel(0, 'Trend: ' + DoubleToString(trend), 0, 0);
+        }
+    }
+}
+
+// Identify potential trading opportunities based on the scanned market trends
+void IdentifyTradingOpportunities()
+{
+    // TODO: Add logic to identify trading opportunities based on the scanned trends
+}
+
+// Make informed trading decisions based on the trend information
+void MakeTradingDecisions()
+{
+    // TODO: Add logic to make trading decisions based on the identified trading opportunities
+}
+
+// Entry point of the program
+void OnTick()
+{
+    // Scan market trends
+    ScanMarketTrends();
+
+    // Identify trading opportunities
+    IdentifyTradingOpportunities();
+
+    // Make trading decisions
+    MakeTradingDecisions();
+}
+
+// Test the code
+void TestCode()
+{
+    // TODO: Add code to test the functionality of the program
+}
+
+// Main function
+void OnStart()
+{
+    // Run code testing
+    TestCode();
+}
+
+// Provide support and assistance for any technical issues
+void Support()
+{
+    // TODO: Add code to provide support and assistance for any technical issues
+}
+
+// Ensure the code meets all necessary security and compliance requirements
+void EnsureSecurityAndCompliance()
+{
+    // TODO: Add code to ensure security and compliance requirements are met
+}
+
+// Logical conclusion of the program
+void Conclusion()
+{
+    // TODO: Add code to conclude the program execution and perform necessary cleanup
+}
